@@ -10,7 +10,7 @@
 
 std::pair<SubframeProcessor*, long> SubframeProcessor::calculateCoefs(std::vector<long>& samples, int sampleDepth) {
     int shift = numExtraBits(samples);
-    // Though we loop through order 2 to 12 LPCs, we're only gonna use the order 12 ones anyways
+    // Though we loop through order 2 to 8 LPCs, we're only gonna use the order 8 ones anyways
     int min = 2;
     int max = 12;
     int roundingVars = 0;

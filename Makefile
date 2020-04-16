@@ -1,5 +1,5 @@
 CXX=g++
-CXXFLAGS=-pedantic -Wall -g -std=c++17 -O3
+CXXFLAGS=-pedantic -Wall -g -std=c++2a -O3
 
 INCLUDES = .
 INCLUDESFSE = ./lib

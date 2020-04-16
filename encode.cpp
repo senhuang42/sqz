@@ -232,7 +232,7 @@ DataEncoder::DataEncoder(StreamHeader& streamHeader, vector<vector<int>>& sample
     streamHeader.max_block_size_ = blockSize;
     streamHeader.min_frame_size_ = streamHeader.max_frame_size_ = 0;
     for (size_t i = 0, pos = 0; pos < samples[0].size(); i++) {
-        printf("Frame: %zu, %.1f%% done\n", i, 100.0 * pos / samples[0].size());
+        // printf("Frame: %zu, %.1f%% done\n", i, 100.0 * pos / samples[0].size());
         int n = min(samples[0].size() - pos, (unsigned long)blockSize);
         vector<vector<long>> subsamples = getRange(samples, pos, n);
 
