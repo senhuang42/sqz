@@ -10,14 +10,15 @@ than existing codecs which use Arithmetic Coding (like OptimFROG). Compatible wi
 We use a super-fast Finite State Entropy library (https://github.com/Cyan4973/FiniteStateEntropy) (shoutout to Yann Collett for making this)
 to do the FSE compression. We also borrow a lot of useful concepts and file-format cues from FLAC.
 
-In practice, it's slower, and offers a worse compression rate than productionized, industry-standard codecs. It's more comparable to the best general-purpose compression algorithms (zstd) in terms of performance. The worse speed
-to be expected, as this codec is optimized for speed. It's not quite as good of a compressor as other lossless
-codecs for a couple of reasons:
+In practice, it's slower, and offers a worse compression rate than productionized, industry-standard codecs.
+It's more comparable to the best general-purpose compression algorithms (zstd) in terms of performance.
+The worse speed is to be expected, as this codec is not yet optimized for speed and minimal machine instructions. 
+It's not quite as good of a compressor as other lossless codecs for a couple of reasons:
 - Block size selection is suboptimal
 - No use of inter-channel decorrelation (if we were to do stereo encoding too)
 - Wasted bits when encoding the residuals
 Each of these are still open questions, since use of FSE to encode residuals has not been a thoroughly researched
-topic, but I use some workable placeholders instead.
+topic, but I use some workable placeholders heuristics instead.
 
 Generally, this has been tested for correctness/no-loss, but this project is not
 significantly fuzzed, so use at your own risk. Currently, this will encode single-channel audio with 16-bit depth. Higher bitrates are currently not supported. I've included some sample .wav files that fit these requirements that you can use to test it out.
