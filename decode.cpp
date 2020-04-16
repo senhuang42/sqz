@@ -76,7 +76,7 @@ void Decoder::Decode(std::string inFileName, std::string outFileName) {
                         nChannels, sampleRate, sampleDepth);
     // decode frame by frame
     for (int i = 0; decodeFrame(inputFileStream, nChannels, sampleDepth, outputFileStream); ++i) {
-        printf("Decoded frame: %d\n", i);
+        //printf("Decoded frame: %d\n", i);
     }
     
     outputFileStream.flush();

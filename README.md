@@ -17,6 +17,7 @@ It's not quite as good of a compressor as other lossless codecs for a couple of 
 - Block size selection is suboptimal
 - No use of inter-channel decorrelation (if we were to do stereo encoding too)
 - Wasted bits when encoding the residuals
+
 Each of these are still open questions, since use of FSE to encode residuals has not been a thoroughly researched
 topic, but I use some workable placeholders heuristics instead.
 
