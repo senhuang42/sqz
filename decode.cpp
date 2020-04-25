@@ -12,6 +12,7 @@ static void putStr(std::string s, OutBufferedBitFileStream& outputFileStream) {
     std::for_each(s.begin(), s.end(), [&](char c){ outputFileStream.putVal(8, c); });
 }
 
+// writes little endian
 static void putLEInt(int nBytes, int val, OutBufferedBitFileStream& outputFileStream) {
     for (int i = 0; i < nBytes; i++) {
 		outputFileStream.putVal(8, (unsigned int)val >> (i * 8));
@@ -90,7 +91,7 @@ bool Decoder::decodeFrame(InBufferedBitFileStream& inputFileStream, int nChannel
     }
 
     if (((unsigned)code <<  6 | inputFileStream.readUnsignedInt(6)) != 0x3FFE) {
-        throw std::runtime_error("sync error\n");
+        throw std::runtime_error("sync code error");
     }
     
     inputFileStream.readUnsignedInt(2); // just to round out the byte
@@ -127,6 +128,7 @@ bool Decoder::decodeFrame(InBufferedBitFileStream& inputFileStream, int nChannel
         inputFileStream.readUnsignedInt(16);
     }
     
+    // consume the header bytes that we don't use for now, but may in the future
     inputFileStream.readUnsignedInt(8);
     vector<vector<int>> samples(nChannels, vector<int>(blockSize));
     decodeAllSubframes(inputFileStream, sampleDepth, channelCode, samples);

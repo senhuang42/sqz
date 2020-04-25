@@ -14,6 +14,7 @@
 
 using namespace std;
 
+// Note that it's a non null-terminated string
 static std::string readStr(FILE* in, int len) {
     char* charBuf = (char*)malloc(sizeof(char)*len);
     if (!charBuf) {

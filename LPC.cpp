@@ -30,6 +30,8 @@ LinearPredictiveEncoder::LinearPredictiveEncoder(vector<long>& samples, int shif
 
     // construct the matrix to solve
     vector<vector<double>> matrix(order_, vector<double>(order_+1));
+
+    // Constructing a toeplitz matrix
     for (int row = 0; row < order_; ++row) {
         for (int col = 0; col < order_ + 1; ++col) {
             double prod;

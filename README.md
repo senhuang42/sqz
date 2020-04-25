@@ -12,11 +12,13 @@ to do the FSE compression. We also borrow a lot of useful concepts and file-form
 
 In practice, it's slower, and offers a worse compression rate than productionized, industry-standard codecs.
 It's more comparable to the best general-purpose compression algorithms (zstd) in terms of performance.
-The worse speed is to be expected, as this codec is not yet optimized for speed and minimal machine instructions. 
+The worse speed is to be expected, as this codec is not yet optimized for speed. 
 It's not quite as good of a compressor as other lossless codecs for a couple of reasons:
 - Block size selection is suboptimal
 - No use of inter-channel decorrelation (if we were to do stereo encoding too)
 - Wasted bits when encoding the residuals
+  - This is the big one: currently we encode 16-bit residuals no matter what. However, most residuals can be
+    stored with just 6-12 bits, rarely going above that. This is the next obvious step for the algorithm.
 
 Each of these are still open questions, since use of FSE to encode residuals has not been a thoroughly researched
 topic, but I use some workable placeholders heuristics instead.
@@ -30,7 +32,9 @@ significantly fuzzed, so use at your own risk. Currently, this will encode singl
 ### API:
 This repository can be built as a library, and you can include 'encode.h' and 'decode.h',
 to use as an API for encoding/decoding files from your system.
+
 `Encoder::Encode(std::string infile, std::string outfile)`
+
 `Decoder::Decode(std::string infile, std::string outfile)`
 
 ### Benchmarks:
@@ -41,7 +45,11 @@ to use as an API for encoding/decoding files from your system.
 | zstd 1.4.4 -13          | 1.160  |   9900 KB/s  |   50400 KB/s |
 | flac -8                 | 1.526  |   29700 KB/s |   15900 KB/s |
 | alac                    | 1.525  |   20100 KB/s |   14400 KB/s |
-| optimFROG -5            | 1.626  |   1200 KB/s  |   1344 KB/s  |
+| optimFROG -5            | 1.626  |   1200 KB/s  |   1300 KB/s  |
 
 Recorded on Mac OS X with a very worn-down Macbook Pro 13 with 2Ghz i5 with `time` on
 `test_files/CantinaBand.wav` (60 seconds duration) for end-to-end file processing with an SSD
+
+### Thanks
+
+To Prof. Stephen Slade for advising this project!

@@ -12,7 +12,7 @@ std::pair<SubframeProcessor*, long> SubframeProcessor::calculateCoefs(std::vecto
     int shift = numExtraBits(samples);
     // Though we loop through order 2 to 8 LPCs, we're only gonna use the order 8 ones anyways
     int min = 2;
-    int max = 12;
+    int max = 10;
     int roundingVars = 0;
     MemorizedDotProd fdp(samples, max);
     long minSize = LONG_MAX;
