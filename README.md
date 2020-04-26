@@ -41,7 +41,7 @@ to use as an API for encoding/decoding files from your system.
 
 | Compressor name         | Ratio  |  Compress    |  Decompress  |
 | ---------------         |--------|--------------|--------------|
-| **sqz**                 | 1.266  |   1500 KB/s  |   1300 KB/s  |
+| **sqz**                 | 1.266  |   2100 KB/s  |   1700 KB/s  |
 | zstd 1.4.4 -13          | 1.160  |   9900 KB/s  |   50400 KB/s |
 | flac -8                 | 1.526  |   29700 KB/s |   15900 KB/s |
 | alac                    | 1.525  |   20100 KB/s |   14400 KB/s |
