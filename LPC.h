@@ -36,14 +36,6 @@ private:
         for_each(result.begin(), result.end(), [&](long& val){ val = val >> shift; });
         return result;
     }
-    
-    void swapRows(vector<vector<double>> mat, int i, int j) {
-        for (int k = 0; k <= mat.size(); k++) { 
-            auto tmp = mat[i][k]; 
-            mat[i][k] = mat[j][k]; 
-            mat[j][k] = tmp; 
-        } 
-    }
 
     vector<double> backSub(vector<vector<double>>& mat) {
         int N = mat.size();
@@ -74,7 +66,7 @@ private:
             if (!mat[k][iMaxVal]) 
                 singular = true; // Matrix is singular 
             if (iMaxVal != k) {
-                swapRows(mat, k, iMaxVal); 
+                std::swap(mat[k], mat[iMaxVal]); 
             }
     
             for (size_t i = k + 1; i < N; i++) { 
