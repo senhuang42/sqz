@@ -39,6 +39,8 @@ public:
 			int b = (int)((unsigned long)buf_ >> buf_size_) & 0xFF;
 			out_.put(b); // check
 			bytes_written_++;
+
+            // update Crc
 			check8_ ^= b;
 			check16_ ^= b << 8;
 			for (int i = 0; i < 8; i++) {
@@ -58,7 +60,6 @@ public:
 
     // include cyclic redundancy check functionality like FLAC
     int Crc8() {
-        assertAlignment();
         flush();
         if (((unsigned)check8_ >> 8) != 0) {
             throw std::runtime_error("Bad check8_ code");
@@ -67,7 +68,6 @@ public:
     }
 
     int Crc16() {
-        assertAlignment();
         flush();
         if (((unsigned)check16_ >> 16) != 0) {
             throw std::runtime_error("Bad check16_ code");
@@ -86,12 +86,6 @@ public:
     void align() {
         int bytesToAlign = (64 - buf_size_) % 8;
         putVal(bytesToAlign, 0);
-    }
-
-    void assertAlignment() {
-        if (buf_size_ % 8 != 0) {
-            throw std::runtime_error("not at a byte boundary");
-        }
     }
 
 private:

@@ -2,6 +2,7 @@
 #include "lib/fse.h"
 
 void FseEncoder::encode(std::vector<long>& data, int warmup, int order, OutBufferedBitFileStream& out) {
+    // data block: [ 4-bit order | LONG data size | data * numPartitions ]
     out.putVal(4, order);
     int numPartitions = 1 << order;
     int start = warmup;

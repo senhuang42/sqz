@@ -13,7 +13,7 @@ std::pair<SubframeProcessor*, long> LinearPredictiveEncoder::calculateCoefs(vect
     // we can use that as a drop-in. Until then, just say it's 5000. Everything will still work
     // since this would just be kind of a heuristic selection.
 
-    // And yes, this is doing extra unnecessary work.
+    // And yes, this is doing extra unnecessary work
     for (int i = 0; i < (1 << roundVars); ++i) {
         vector<long> newData = samples;
         doLinearPrediction(newData, enc->coefficients_, enc->coefficients_shift_amount_);
@@ -69,8 +69,7 @@ LinearPredictiveEncoder::LinearPredictiveEncoder(vector<long>& samples, int shif
         int val = (int)round(coef * (1 << coefficients_shift_amount_));
         coefficients_[i] = std::max(
                                 std::min(val, (1 << (coefficients_depth_ - 1)) - 1),
-                                -(1 << (coefficients_depth_ - 1))
-                            );
+                                -(1 << (coefficients_depth_ - 1)));
     }
 }
 
